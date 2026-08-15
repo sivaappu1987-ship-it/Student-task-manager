@@ -1,0 +1,712 @@
+/* Ruled Notebook Page Design System */
+
+:root {
+  --paper: #F5F6F2;
+  --ink: #1E2A28;
+  --rule: #C9D1CC;
+  --margin-rule: #B23A34;
+  --accent-done: #2F6F4E;
+  --accent-focus: #F0B429;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.5;
+  min-width: 360px;
+  min-height: 100vh;
+}
+
+.app-container {
+  min-height: 100vh;
+}
+
+/* Header */
+#menu-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+#menu-bar::before {
+  content: 'Student Task Manager';
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.sign-in-prompt {
+  text-align: center;
+  padding: 80px 24px;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 400;
+  opacity: 0.6;
+}
+
+/* Main Container */
+.task-manager-container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 24px 40px;
+}
+
+.task-manager {
+  background: transparent;
+}
+
+.task-manager h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.task-manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--ink);
+  opacity: 0.8;
+}
+
+.sort-select,
+.priority-select,
+.priority-select-edit {
+  height: 44px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: white;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.sort-select {
+  height: 36px;
+}
+
+.priority-select-edit {
+  height: 36px;
+}
+
+.task-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.priority-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.priority-p1 {
+  background: #FEE2E2;
+  color: #991B1B;
+  border: 1px solid #FCA5A5;
+}
+
+.priority-p2 {
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #FCD34D;
+}
+
+.priority-p3 {
+  background: #E0E7FF;
+  color: #3730A3;
+  border: 1px solid #A5B4FC;
+}
+
+/* Input Section */
+.task-input-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+  align-items: center;
+}
+
+.task-input {
+  flex: 1;
+  height: 44px;
+  padding: 0 16px;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: white;
+  color: var(--ink);
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.task-input::placeholder {
+  color: var(--ink);
+  opacity: 0.4;
+}
+
+.task-input:focus {
+  outline: none;
+  border-color: var(--accent-focus);
+  box-shadow: 0 0 0 2px var(--accent-focus);
+}
+
+.add-button {
+  height: 44px;
+  padding: 0 20px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  background: var(--accent-done);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 120ms ease, transform 120ms ease;
+  white-space: nowrap;
+}
+
+.add-button:hover {
+  background: #265940;
+}
+
+.add-button:active {
+  transform: scale(0.98);
+}
+
+/* Task List - Notebook Style */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+/* Signature margin rule - vertical line down the left */
+.task-list::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--margin-rule);
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0 16px 48px;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+  min-height: 60px;
+  transition: background-color 120ms ease;
+}
+
+.task-item:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.task-item:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+
+.task-item.completed {
+  opacity: 0.5;
+}
+
+/* Custom Checkbox */
+.task-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 120ms ease;
+  position: relative;
+  background: white;
+  opacity: 0.6;
+}
+
+.task-checkbox:hover {
+  opacity: 1;
+}
+
+.task-checkbox:checked {
+  background: var(--accent-done);
+  border-color: var(--accent-done);
+  opacity: 1;
+}
+
+.task-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  left: 2px;
+  top: -2px;
+  font-size: 14px;
+  color: white;
+  font-weight: 700;
+}
+
+.task-checkbox:focus-visible {
+  outline: 2px solid var(--accent-focus);
+  outline-offset: 2px;
+}
+
+/* Task Content */
+.task-title {
+  flex: 1;
+  cursor: pointer;
+  user-select: none;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.task-title span:first-child {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.task-item.completed .task-title span:first-child {
+  text-decoration: line-through;
+}
+
+.task-title::after {
+  content: attr(data-date);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.5;
+  letter-spacing: 0.05em;
+}
+
+/* Task Actions */
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-icon,
+.delete-button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  opacity: 0.4;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 120ms ease;
+  font-size: 16px;
+}
+
+.edit-icon:hover,
+.delete-button:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.edit-icon:focus-visible,
+.delete-button:focus-visible {
+  outline: 2px solid var(--accent-focus);
+  outline-offset: 2px;
+}
+
+/* Edit Mode */
+.task-edit-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.task-edit-input {
+  flex: 1;
+  height: 36px;
+  padding: 0 12px;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  border: 1px solid var(--accent-focus);
+  border-radius: 3px;
+  background: white;
+  color: var(--ink);
+}
+
+.task-edit-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-focus);
+}
+
+.edit-save-button,
+.edit-cancel-button {
+  height: 32px;
+  padding: 0 14px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 120ms ease;
+  white-space: nowrap;
+}
+
+.edit-save-button {
+  background: var(--accent-done);
+  color: white;
+}
+
+.edit-save-button:hover {
+  background: #265940;
+}
+
+.edit-cancel-button {
+  background: transparent;
+  color: var(--ink);
+  opacity: 0.6;
+}
+
+.edit-cancel-button:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.edit-save-button:focus-visible,
+.edit-cancel-button:focus-visible {
+  outline: 2px solid var(--accent-focus);
+  outline-offset: 2px;
+}
+
+.inline-error {
+  color: var(--margin-rule);
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* Error Banner */
+.error-banner {
+  padding: 14px 16px;
+  background: rgba(178, 58, 52, 0.1);
+  border-left: 3px solid var(--margin-rule);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.error-message {
+  flex: 1;
+  font-size: 14px;
+  color: var(--margin-rule);
+  font-weight: 500;
+}
+
+.error-dismiss {
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
+  background: transparent;
+  border: none;
+  color: var(--margin-rule);
+  cursor: pointer;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 120ms ease;
+  opacity: 0.6;
+}
+
+.error-dismiss:hover {
+  opacity: 1;
+  background: rgba(178, 58, 52, 0.1);
+}
+
+.error-dismiss:focus-visible {
+  outline: 2px solid var(--accent-focus);
+  outline-offset: 2px;
+}
+
+/* Loading and Empty States */
+.loading,
+.empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--ink);
+  font-size: 15px;
+  opacity: 0.5;
+}
+
+.empty-state {
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .task-list::before {
+    left: 20px;
+  }
+
+  .task-item {
+    padding-left: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  #menu-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .task-input-form {
+    flex-direction: column;
+  }
+
+  .add-button {
+    width: 100%;
+  }
+
+  .task-list::before {
+    left: 16px;
+  }
+
+  .task-item {
+    padding-left: 36px;
+    gap: 12px;
+  }
+
+  .task-edit-container {
+    flex-wrap: wrap;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* Focus Visible */
+*:focus-visible {
+  outline: 2px solid var(--accent-focus);
+  outline-offset: 2px;
+}
+
+/* AWS Blocks Auth UI Component Overrides */
+/* Override inline styles from @aws-blocks/auth-common/ui components */
+
+/* Account Menu Bar - styled to match notebook theme */
+[data-testid="account-menu"] > div {
+  background: transparent !important;
+  border-bottom: none !important;
+  padding: 0 !important;
+  font-family: 'Inter', sans-serif !important;
+  justify-content: flex-end !important;
+}
+
+[data-testid="account-menu-username"] {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: var(--ink) !important;
+  opacity: 0.8;
+}
+
+[data-testid="account-menu-signin"],
+[data-testid="account-menu-signout"] {
+  height: 36px !important;
+  padding: 0 16px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  font-family: 'Inter', sans-serif !important;
+  background: transparent !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--rule) !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  transition: all 120ms ease !important;
+}
+
+[data-testid="account-menu-signin"]:hover,
+[data-testid="account-menu-signout"]:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-color: var(--ink) !important;
+}
+
+/* Modal overlay - notebook theme */
+[data-testid="account-menu-modal"] {
+  background: rgba(30, 42, 40, 0.75) !important;
+  backdrop-filter: blur(2px);
+}
+
+[data-testid="account-menu-modal"] > div {
+  background: white !important;
+  border-radius: 8px !important;
+  padding: 32px !important;
+  max-width: 400px !important;
+  box-shadow: 0 8px 32px rgba(30, 42, 40, 0.3) !important;
+}
+
+[data-testid="account-menu-modal-close"] {
+  color: var(--ink) !important;
+  opacity: 0.6;
+  transition: opacity 120ms ease !important;
+  font-size: 20px !important;
+}
+
+[data-testid="account-menu-modal-close"]:hover {
+  opacity: 1 !important;
+}
+
+/* Authenticator component - notebook theme */
+[data-testid="authenticator"] {
+  max-width: 400px !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+[data-testid="authenticator"] > div {
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+[data-testid="authenticator-heading"],
+[data-testid="authenticator"] h3 {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+  margin: 0 0 24px 0 !important;
+  letter-spacing: -0.02em !important;
+}
+
+[data-testid="authenticator-signed-in"] {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+}
+
+[data-testid="authenticator-error"] {
+  padding: 12px 16px !important;
+  background: rgba(178, 58, 52, 0.1) !important;
+  border-left: 3px solid var(--margin-rule) !important;
+  border-radius: 4px !important;
+  color: var(--margin-rule) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  margin-bottom: 16px !important;
+}
+
+/* Auth form actions wrapper */
+[data-testid^="authenticator-action-"] {
+  margin-bottom: 24px !important;
+}
+
+/* Auth input fields */
+[data-testid="authenticator-username"],
+[data-testid="authenticator-password"],
+[data-testid="authenticator-email"],
+[data-testid^="authenticator-"] input[type="text"],
+[data-testid^="authenticator-"] input[type="password"],
+[data-testid^="authenticator-"] input[type="email"] {
+  width: 100% !important;
+  height: 44px !important;
+  padding: 0 16px !important;
+  font-size: 16px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 400 !important;
+  border: 1px solid var(--rule) !important;
+  border-radius: 4px !important;
+  background: white !important;
+  color: var(--ink) !important;
+  transition: border-color 120ms ease, box-shadow 120ms ease !important;
+  margin-bottom: 12px !important;
+  box-sizing: border-box !important;
+}
+
+[data-testid^="authenticator-"] input[type="text"]:focus,
+[data-testid^="authenticator-"] input[type="password"]:focus,
+[data-testid^="authenticator-"] input[type="email"]:focus {
+  outline: none !important;
+  border-color: var(--accent-focus) !important;
+  box-shadow: 0 0 0 2px var(--accent-focus) !important;
+}
+
+[data-testid^="authenticator-"] input::placeholder {
+  color: var(--ink) !important;
+  opacity: 0.4 !important;
+}
+
+/* Auth submit button */
+[data-testid="authenticator-submit"] {
+  width: 100% !important;
+  height: 44px !important;
+  padding: 0 20px !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  font-family: 'Inter', sans-serif !important;
+  background: var(--accent-done) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  transition: background-color 120ms ease, transform 120ms ease !important;
+  margin: 8px 0 0 0 !important;
+}
+
+[data-testid="authenticator-submit"]:hover {
+  background: #265940 !important;
+}
+
+[data-testid="authenticator-submit"]:active {
+  transform: scale(0.98) !important;
+}
